@@ -235,4 +235,4 @@ async def help(ctx,content=""):
         """,color=0x000000)
         await ctx.send(embed=embed)
 
-client.run('NzA1MDg3Mjc2MzU0NjMzOTAw.Xsvz2Q.QHQ4TxgPRtXHN-BEtIfISHWIwCw')
+client.run('Your Bot Token Here')
