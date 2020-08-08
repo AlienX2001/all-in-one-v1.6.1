@@ -1,7 +1,7 @@
 HTB = {
-    "email": "HTB EMAIL ID",
-    "password": "HTB PASS",
-    "api_token": "HTB TOKEN"
+    "email": "all.in.one.bot.2020@gmail.com",
+    "password": "iG4NEFFXwVDx92j",
+    "api_token": "cd9Ij1sRVdZpaZoAK58y0Qq2hudDnLYx2vdBfFhchvVAPSkOJRzIi5NUxmlZ"
 }
 
 discord = {
