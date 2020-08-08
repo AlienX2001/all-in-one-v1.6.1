@@ -101,10 +101,10 @@ async def quiz(ctx,member:discord.Member,command="",var=""):
             elif(var <="0" or var >="5"):
                 await ctx.send(f'Max number of rounds can be 5')
             else:
-                with open("C:\Arpit\\test bot\lib\\rounds.txt","w") as f:#will have to change the file path
+                with open("lib/rounds.txt","w") as f:#will have to change the file path
                     f.write(str(int(var)*2))
                 await ctx.send(f'GAME STARTED !!! {player1.mention} vs {player2.mention}')
-                with open("C:\Arpit\\test bot\lib\\players.json","w") as f:
+                with open("lib/players.json","w") as f:
                     players={"1":player1.id, "2":player2.id}
                     f.write(json.dumps(players))
                 await ctx.send(f'You can start playing by `.quiz <user mention> play`')
@@ -113,7 +113,7 @@ async def quiz(ctx,member:discord.Member,command="",var=""):
 
     elif(command=="play"):
         #the playing of game
-        with open("C:\Arpit\\test bot\lib\\players.json", "r") as f:
+        with open("lib/players.json", "r") as f:
             players=json.loads(f.read())
         for key in players.keys():
             if (key=='1'):
@@ -122,17 +122,17 @@ async def quiz(ctx,member:discord.Member,command="",var=""):
                 player2=players['2']
         if(ctx.message.author.id in players.values()):
             if(player1!=player2):
-                with open("C:\Arpit\\test bot\lib\\rounds.txt","r") as f:#will have to change the file path
+                with open("lib/rounds.txt","r") as f:#will have to change the file path
                     rounds=f.read()
                 if(int(rounds)>0 and int(rounds)%2==1):
                     targetplayer=player1
-                    with open("C:\Arpit\\test bot\lib\\turn.txt","w") as f: #will have to change the file path
+                    with open("lib/turn.txt","w") as f: #will have to change the file path
                         f.write(str(targetplayer))
                     #game code
                     await game.play(ctx,targetplayer)
                 elif (int(rounds) > 0 and int(rounds) % 2 == 0):
                     targetplayer = player2
-                    with open("C:\Arpit\\test bot\lib\\turn.txt", "w") as f:  # will have to change the file path
+                    with open("lib/turn.txt", "w") as f:  # will have to change the file path
                         f.write(str(targetplayer))
                     # game code
                     await game.play(ctx, targetplayer)
@@ -145,7 +145,7 @@ async def quiz(ctx,member:discord.Member,command="",var=""):
             await ctx.send(f'You are not in the current game {ctx.message.author.mention}')
     elif(command=="answer"):
         #answer command
-        with open("C:\Arpit\\test bot\lib\\players.json", "r") as f:
+        with open("lib/players.json", "r") as f:
             players = json.loads(f.read())
         for key in players.keys():
             if (key == '1'):
@@ -154,13 +154,13 @@ async def quiz(ctx,member:discord.Member,command="",var=""):
                 player2 = players['2']
         if(ctx.message.author.id in players.values()):
             if(player1!=player2):
-                with open("C:\Arpit\\test bot\lib\\turn.txt", "r") as f:  # will have to change file path
+                with open("lib/turn.txt", "r") as f:  # will have to change file path
                     targetplayer = f.read()
                 if (str(ctx.message.author.id) != targetplayer):
                     await ctx.message.delete()
                     await ctx.send(f'You cant enter the answer')
                 else:
-                    with open("C:\Arpit\\test bot\lib\\rounds.txt", "r+") as f:  # will have to change the file path
+                    with open("lib/rounds.txt", "r+") as f:  # will have to change the file path
                         rounds = int(f.read())
                         rounds-=1;
                         f.seek(0,0)
@@ -184,7 +184,7 @@ async def quiz(ctx,member:discord.Member,command="",var=""):
 @client.command()
 async def quiz_add(ctx,ques="",ans="",anslist=""):
     if(ques==""):
-        await ctx.send(f'The format is `.add <ques> <correct ans> <options list(3) in double quotes with the delimiter as ":">`')
+        await ctx.send(f'The format is `.quiz_add <ques> <correct ans> <options list(3) in double quotes with the delimiter as ":">`')
     elif(ans==""):
         await ctx.send(f'Please enter answer')
     elif(anslist==""):
@@ -235,4 +235,4 @@ async def help(ctx,content=""):
         """,color=0x000000)
         await ctx.send(embed=embed)
 
-client.run('Your Bot Token Here')
+client.run('NzA1MDg3Mjc2MzU0NjMzOTAw.Xqmlsg.J9HaM0v1mAW0Jt8Mz9JpJLZLeqg')
