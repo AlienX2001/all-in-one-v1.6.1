@@ -139,9 +139,9 @@ async def kick(ctx, member: discord.Member):
                                   color=0xff0000)
             await ctx.send(embed=embed)
         else:
-            await ctx.guild.kick(user)
+            await ctx.guild.kick(member)
             embed = discord.Embed(title="Status",
-                                  description="**{0}** has been kicked by **{1}**!".format(user.name, ctx.message.author),
+                                  description="**{0}** has been kicked by **{1}**!".format(member.name, ctx.message.author),
                                   color=0x0000ff)
             await ctx.send(embed=embed)
     else:
@@ -159,9 +159,9 @@ async def ban(ctx, member: discord.Member):
                                   color=0xff0000)
             await ctx.send(embed=embed)
         else:
-            await ctx.guild.ban(user)
+            await ctx.guild.ban(member)
             embed = discord.Embed(title="Status",
-                                  description="**{0}** has been banned by **{1}**!".format(user.name, ctx.message.author),
+                                  description="**{0}** has been banned by **{1}**!".format(member.name, ctx.message.author),
                                   color=0x0000ff)
             await ctx.send(embed=embed)
     else:
