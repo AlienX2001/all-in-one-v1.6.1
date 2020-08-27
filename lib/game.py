@@ -3,8 +3,6 @@ from discord.ext import commands
 import random
 import json
 import os
-dir=os.getcwd()
-print(dir)
 def show_ans(list):
     temp=""
     for i in range(0,len(list)):
@@ -91,23 +89,23 @@ async def answer(ctx,ans,rounds):
                 score = {
                     str(ctx.message.author): 0
                 }
-            with open("scoreboard.json","r") as f: #will have to change file path
+            with open("lib/scoreboard.json","r") as f: #will have to change file path
                 tempvar=json.loads(str(f.read()))
             if(len(tempvar.keys())==0):
                 list_main={}
             else:
                 list_main=tempvar
             if(str(ctx.message.author.id) in str(list_main.keys())):
-                with open("scoreboard.json", "r") as f:  # will have to change file path
+                with open("lib/scoreboard.json", "r") as f:  # will have to change file path
                     tempvar = json.loads(str(f.read()))
                 list1 = tempvar
                 for key in list1.keys():
                     key ='"'+key+'"'
                 list1[str(ctx.message.author.id)] += score[str(ctx.message.author)]
-                with open("scoreboard.json","w") as f:#will have to change file path
+                with open("lib/scoreboard.json","w") as f:#will have to change file path
                     f.write(json.dumps(list1))
             else:
-                with open("scoreboard.json","r") as f: #will have to change file path
+                with open("lib/scoreboard.json","r") as f: #will have to change file path
                     tempvar = json.loads(str(f.read()))
                 if(tempvar==""):
                     list2={}
@@ -117,47 +115,47 @@ async def answer(ctx,ans,rounds):
                 list2[str(ctx.message.author.id)] += score[str(ctx.message.author)]
                 for key in list2.keys():
                     key = '"' + key + '"'
-                with open("scoreboard.json","w") as f:#will have to change file path
+                with open("lib/scoreboard.json","w") as f:#will have to change file path
                     f.write(json.dumps(list2))
             if(rounds==0):
-                with open("scoreboard.json", "r") as f:  # will have to change file path
+                with open("lib/scoreboard.json", "r") as f:  # will have to change file path
                     tempvar = json.loads(str(f.read()))
                 scores=tempvar.values()
                 if(list(scores)[0]>list(scores)[1]):
                     for val in tempvar.values():
                         if(list(scores)[0]==val):
                             await ctx.send(f'<@!{list(tempvar.keys())[list(tempvar.values()).index(val)]}> wins 🥳🥳')
-                            with open("scoreboard.json",
+                            with open("lib/scoreboard.json",
                                       "r") as f:  # will have to change file path
                                 tempvar = json.loads(str(f.read()))
                             for key in tempvar.keys():
                                 key = '"' + key + '"'
                             for key in tempvar.keys():
                                 tempvar[key]=0
-                            with open("scoreboard.json","w") as f:
+                            with open("lib/scoreboard.json","w") as f:
                                 f.write(json.dumps(tempvar))
 
                 elif(list(scores)[1]>list(scores)[0]):
                     for val in tempvar.values():
                         if(list(scores)[1]==val):
                             await ctx.send(f'<@!{list(tempvar.keys())[list(tempvar.values()).index(val)]}> wins 🥳🥳')
-                            with open("scoreboard.json","r") as f:  # will have to change file path
+                            with open("lib/scoreboard.json","r") as f:  # will have to change file path
                                 tempvar = json.loads(str(f.read()))
                             for key in tempvar.keys():
                                 key = '"' + key + '"'
                             for key in tempvar.keys():
                                 tempvar[key]=0
-                            with open("scoreboard.json","w") as f:  # will have to change file path
+                            with open("lib/scoreboard.json","w") as f:  # will have to change file path
                                 f.write(json.dumps(tempvar))
                 else:
                     await ctx.send(f'Its a Draw!!...Well Played both of You')
-                    with open("scoreboard.json","r") as f:  # will have to change file path
+                    with open("lib/scoreboard.json","r") as f:  # will have to change file path
                         tempvar = json.loads(str(f.read()))
                     for key in tempvar.keys():
                         key = '"' + key + '"'
                     for key in tempvar.keys():
                         tempvar[key] = 0
-                    with open("scoreboard.json","w") as f:  # will have to change file path
+                    with open("lib/scoreboard.json","w") as f:  # will have to change file path
                         f.write(json.dumps(tempvar))
 
 

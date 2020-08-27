@@ -1,4 +1,5 @@
 import discord
+import json
 
 
 async def addrole(ctx,role:discord.Role):
@@ -58,15 +59,41 @@ async def warn(ctx, member: discord.Member):
                                   description="You cant warn an admin!!",
                                   color=0xff0000)
         else:
-            if member.name in warn_list.keys():
-                warn_list[member.name]+=1
-                '''if warn_list[member.name]>=3:
-                    await ctx.guild.kick(member)
-                    await ctx.send(f'Due to 3 or more warnings {member.name} has been kicked!!')'''#this is an experimental feature
+            try:
+                with open("lib/warning.json", "r") as f:
+                    warnlist = json.loads(str(f.read()))
+            except:
+                ctx.send(f'Error: Warning list not found!!')
             else:
-                warn_list[member.name]=1
-            embed=discord.Embed(title="Status", description="**{0}** was warned by **{1}**".format(member, ctx.message.author), color=0x0000ff)
-            await ctx.send(embed=embed)
+                if(str(str(member.id)) in warnlist.keys()):
+                    warnlist[str(str(member.id))]+=1
+                else:
+                    warnlist[str(str(member.id))]=1
+                with open("lib/warning.json", "w") as f:
+                    f.write(json.dumps(warnlist))
+                if(warnlist[str(member.id)]==1):
+                    await ctx.send(f'This is your first warning')
+                    embed = discord.Embed(title="Status", description="**{0}** was warned by **{1}**".format(member,
+                                                                                                             ctx.message.author),
+                                          color=0x0000ff)
+                    await ctx.send(embed=embed)
+                elif(warnlist[str(member.id)]==2):
+                    await ctx.send(f'This is your second warning')
+                    embed = discord.Embed(title="Status", description="**{0}** was warned by **{1}**".format(member,
+                                                                                                             ctx.message.author),
+                                          color=0x0000ff)
+                    await ctx.send(embed=embed)
+                elif(warnlist[str(member.id)]==1):
+                    await ctx.send(f'This is your third warning')
+                    embed = discord.Embed(title="Status", description="**{0}** was warned by **{1}**".format(member,
+                                                                                                             ctx.message.author),
+                                          color=0x0000ff)
+                    await ctx.send(embed=embed)
+                else:
+                    await ctx.guild.kick(member)
+                    embed = discord.Embed(title="Status", description="**{0}** was kicked automatically for being warned more than 3 times".format(member),
+                                          color=0x0000ff)
+                    await ctx.send(embed=embed)
      else:
          embed = discord.Embed(title="Error",
                                description="Permission Denied",
