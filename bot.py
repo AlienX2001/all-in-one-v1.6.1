@@ -38,7 +38,7 @@ async def verify(ctx, site="", content=""):
 @client.command()
 async def ping(ctx):
     """Want to ping pong ?"""
-    await ctx.send("Pong ! {}".format(client.latency))
+    await ctx.send("Pong ! {} ms".format(round((client.latency)*1000),3))
 
 @client.command(aliases=['ar'],pass_context = True)
 async def addrole(ctx,role:discord.Role):
