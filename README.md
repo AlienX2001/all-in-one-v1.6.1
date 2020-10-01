@@ -6,6 +6,6 @@
 ### The following features are being worked upon:-
   * A music bot which can play music like bots like Rythm or Groovy
 ## Wanna add my bot?? LINK down below
-https://discord.com/oauth2/authorize?client_id=705087276354633900&permissions=1547168854&scope=bot
+https://discord.com/api/oauth2/authorize?client_id=759774413725237269&permissions=8&scope=bot
 
 PS:- Somethings like verification might not work, if they do cheers!!, if they dont u can open an issue in this repo :)
