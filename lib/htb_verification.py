@@ -16,7 +16,7 @@ async def send_verif_instructions(ctx):
     await ctx.send(embed=embed)
     embed = discord.Embed(color=0x9acc14)
     embed.add_field(name="Step 3: Verify", value="Proceed to send your account identification string in the verification channel by:\n`.verify htb <string>`")
-    embed.set_image(url="https://image.noelshack.com/fichiers/2019/48/3/1574859271-egqgqegqeg.png")
+    embed.set_image(url="https://i.imgur.com/EHSZQeA.png")
     await ctx.send(embed=embed)
 
 
