@@ -110,67 +110,6 @@ async def quiz(ctx,member:discord.Member,command="",var=""):
                 await ctx.send(f'You can start playing by `.quiz <user mention> play`')
         else:
             await ctx.send(f'You cant start a game with yourself!!')
-
-    elif(command=="play"):
-        #the playing of game
-        with open("lib/players.json", "r") as f:
-            players=json.loads(f.read())
-        for key in players.keys():
-            if (key=='1'):
-                player1=players['1']
-            elif(key=='2'):
-                player2=players['2']
-        if(ctx.message.author.id in players.values()):
-            if(player1!=player2):
-                with open("lib/rounds.txt","r") as f:#will have to change the file path
-                    rounds=f.read()
-                if(int(rounds)>0 and int(rounds)%2==1):
-                    targetplayer=player1
-                    with open("lib/turn.txt","w") as f: #will have to change the file path
-                        f.write(str(targetplayer))
-                    #game code
-                    await game.play(ctx,targetplayer)
-                elif (int(rounds) > 0 and int(rounds) % 2 == 0):
-                    targetplayer = player2
-                    with open("lib/turn.txt", "w") as f:  # will have to change the file path
-                        f.write(str(targetplayer))
-                    # game code
-                    await game.play(ctx, targetplayer)
-                else:
-                    await ctx.send(f'No Game in Progress!! Start one to play.')
-            else:
-                ctx.send(f'You need to mention the other player!!')
-        else:
-            await ctx.message.delete()
-            await ctx.send(f'You are not in the current game {ctx.message.author.mention}')
-    elif(command=="answer"):
-        #answer command
-        with open("lib/players.json", "r") as f:
-            players = json.loads(f.read())
-        for key in players.keys():
-            if (key == '1'):
-                player1 = players['1']
-            elif (key == '2'):
-                player2 = players['2']
-        if(ctx.message.author.id in players.values()):
-            if(player1!=player2):
-                with open("lib/turn.txt", "r") as f:  # will have to change file path
-                    targetplayer = f.read()
-                if (str(ctx.message.author.id) != targetplayer):
-                    await ctx.message.delete()
-                    await ctx.send(f'You cant enter the answer')
-                else:
-                    with open("lib/rounds.txt", "r+") as f:  # will have to change the file path
-                        rounds = int(f.read())
-                        rounds-=1;
-                        f.seek(0,0)
-                        f.write(str(rounds))
-                    await game.answer(ctx, var, rounds)
-            else:
-                ctx.send(f'You need to mention the other player!!')
-        else:
-            await ctx.message.delete()
-            await ctx.send(f'You are not in the current game {ctx.message.author.mention}')
     elif(command==""):
         #help options
         embed=discord.Embed(title="Quiz HELP!!!",description='''
@@ -180,7 +119,70 @@ async def quiz(ctx,member:discord.Member,command="",var=""):
         4>.quiz <user mention> <anything else> -> This help
         ''',color=0xFF0000)
         await ctx.send(embed=embed)
+      
+@client.command()
+async def play(ctx):
+    # the playing of game
+    with open("lib/players.json", "r") as f:
+        players = json.loads(f.read())
+    for key in players.keys():
+        if (key == '1'):
+            player1 = players['1']
+        elif (key == '2'):
+            player2 = players['2']
+    if (ctx.message.author.id in players.values()):
+        if (player1 != player2):
+            with open("lib/rounds.txt", "r") as f:  # will have to change the file path
+                rounds = f.read()
+            if (int(rounds) > 0 and int(rounds) % 2 == 1):
+                targetplayer = player1
+                with open("lib/turn.txt", "w") as f:  # will have to change the file path
+                    f.write(str(targetplayer))
+                # game code
+                await game.play(ctx, targetplayer)
+            elif (int(rounds) > 0 and int(rounds) % 2 == 0):
+                targetplayer = player2
+                with open("lib/turn.txt", "w") as f:  # will have to change the file path
+                    f.write(str(targetplayer))
+                # game code
+                await game.play(ctx, targetplayer)
+            else:
+                await ctx.send(f'No Game in Progress!! Start one to play.')
+        else:
+            ctx.send(f'You need to mention the other player!!')
+    else:
+        await ctx.message.delete()
+        await ctx.send(f'You are not in the current game {ctx.message.author.mention}')
 
+@client.command()
+async def answer(ctx, var):
+    with open("lib/players.json", "r") as f:
+        players = json.loads(f.read())
+    for key in players.keys():
+        if (key == '1'):
+            player1 = players['1']
+        elif (key == '2'):
+            player2 = players['2']
+    if (ctx.message.author.id in players.values()):
+        if (player1 != player2):
+            with open("lib/turn.txt", "r") as f:  # will have to change file path
+                targetplayer = f.read()
+            if (str(ctx.message.author.id) != targetplayer):
+                await ctx.message.delete()
+                await ctx.send(f'You cant enter the answer')
+            else:
+                with open("lib/rounds.txt", "r+") as f:  # will have to change the file path
+                    rounds = int(f.read())
+                    rounds -= 1
+                    f.seek(0, 0)
+                    f.write(str(rounds))
+                await game.answer(ctx, var, rounds)
+        else:
+            ctx.send(f'You need to mention the other player!!')
+    else:
+        await ctx.message.delete()
+        await ctx.send(f'You are not in the current game {ctx.message.author.mention}')    
+      
 @client.command()
 async def quiz_add(ctx,ques="",ans="",anslist=""):
     if(ques==""):
