@@ -8,19 +8,46 @@ import lib.game as game
 import json
 
 description = '''An all in one bot'''
-client = commands.Bot(command_prefix='.', description=description)
+client = commands.Bot(command_prefix='!', description=description)
 
 
+@client.event
 @client.event
 async def on_ready():
     print('Logged in as')
     print(client.user.name)
     print(client.user.id)
     print('------')
+    Channel = client.get_channel(758275169969504260)
+    Text = "React with 🕵️ to get wannabe hacker role, 💻 to get wannabe coder role, 🚩 to get CTF player role and 👾 to get Gamer role"
+    Moji = await Channel.send(Text)
+    await Moji.add_reaction('🕵️‍')
+    await Moji.add_reaction('💻')
+    await Moji.add_reaction('🚩')
+    await Moji.add_reaction('👾')
+
 
 @client.event
 async def on_member_join(member):
     await member.send("Welcome! Please verify using `.verify` in the Verification channel")
+
+@client.event
+async def on_reaction_add(reaction, user):
+    Channel = client.get_channel(758275169969504260)
+    if reaction.message.channel != Channel:
+        return
+    if reaction.emoji == '🕵️':
+        role=discord.utils.get(user.guild.roles, name = 'WannaBe Hackers')
+        await user.add_roles(role)
+    elif reaction.emoji == '💻':
+        role=discord.utils.get(user.guild.roles, name = 'WannaBe Coders')
+        await user.add_roles(role)
+    elif reaction.emoji == '🚩':
+        role=discord.utils.get(user.guild.roles, name = 'CTF Players')
+        await user.add_roles(role)
+    elif reaction.emoji == '👾':
+        role=discord.utils.get(user.guild.roles, name = 'Gamers')
+        await user.add_roles(role)
 
 warn_list={}
 
@@ -38,7 +65,7 @@ async def verify(ctx, site="", content=""):
 @client.command()
 async def ping(ctx):
     """Want to ping pong ?"""
-    await ctx.send("Pong ! {} ms".format(round((client.latency)*1000),3))
+    await ctx.send("Pong ! {}".format(client.latency))
 
 @client.command(aliases=['ar'],pass_context = True)
 async def addrole(ctx,role:discord.Role):
@@ -107,19 +134,18 @@ async def quiz(ctx,member:discord.Member,command="",var=""):
                 with open("lib/players.json","w") as f:
                     players={"1":player1.id, "2":player2.id}
                     f.write(json.dumps(players))
-                await ctx.send(f'You can start playing by `.quiz <user mention> play`')
+                await ctx.send(f'You can start playing by `.play`')
         else:
             await ctx.send(f'You cant start a game with yourself!!')
     elif(command==""):
         #help options
         embed=discord.Embed(title="Quiz HELP!!!",description='''
         1>.quiz <user mention> start <number of rounds> -> To start a game with the mentioned user\n
-        2>.quiz <user mention> play -> To get questions(only if a game is started)\n
-        3>.quiz <user mention> answer <answer option(1,2,3)> -> To select the correct option\n
+        2>.play -> To get questions(only if a game is started)\n
+        3>.answer <answer option(1,2,3)> -> To select the correct option\n
         4>.quiz <user mention> <anything else> -> This help
         ''',color=0xFF0000)
         await ctx.send(embed=embed)
-      
 @client.command()
 async def play(ctx):
     # the playing of game
@@ -181,8 +207,9 @@ async def answer(ctx, var):
             ctx.send(f'You need to mention the other player!!')
     else:
         await ctx.message.delete()
-        await ctx.send(f'You are not in the current game {ctx.message.author.mention}')    
-      
+        await ctx.send(f'You are not in the current game {ctx.message.author.mention}')
+
+
 @client.command()
 async def quiz_add(ctx,ques="",ans="",anslist=""):
     if(ques==""):
@@ -237,4 +264,4 @@ async def help(ctx,content=""):
         """,color=0x000000)
         await ctx.send(embed=embed)
 
-client.run('YOUR BOT TOKEN HERE')
+client.run('BOT TOKEN HERE')
