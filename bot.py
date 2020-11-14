@@ -4,6 +4,7 @@ import lib.manual as man
 import lib.moderation as mod
 import lib.htb_verification as htb_verification
 import lib.cf_verification as cf_verification
+import lib.thm_verification as thm_verification
 import lib.game as game
 import json
 
@@ -58,6 +59,8 @@ async def verify(ctx, site="", content=""):
         await htb_verification.verify(ctx,content)
     elif(site=="codeforces"):
         await cf_verification.verify(ctx,content)
+    elif(site=="thm" or site=="tryhackme"):
+        await thm_verification.verify(ctx,content)
     else:
         await ctx.send(f'The Correct Way is `.verify <site> <content>` the <site> can be htb/hackthebox or codeforces')
 
