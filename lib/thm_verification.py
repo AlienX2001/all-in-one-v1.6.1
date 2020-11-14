@@ -17,4 +17,4 @@ async def verify(ctx, content=""):
             embed = discord.Embed(title="Roles added", description='Member', color=0x14ff08)
             await ctx.send(embed=embed)
     else:
-            await ctx.send(f'Please send your discord token via the following ``.verify thm/tryhackme <token>``'
+            await ctx.send(f'Please send your discord token via the following ``.verify thm/tryhackme <token>``')
