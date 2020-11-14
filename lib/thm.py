@@ -11,7 +11,7 @@ else:
     users = []
     
 def verify_user(discord_id,token):
-    re = requests.get(url+token)
+    re = requests.get(URL+token)
     info = re.json()
     if(info['success']==True):
       for user in users:
