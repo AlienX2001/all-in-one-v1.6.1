@@ -5,7 +5,7 @@ async def verify(ctx, content=""):
     """Verify your codeforces account"""
     if content:
         await ctx.message.delete()
-        verify_rep = cf.verify_user(str(ctx.message.author.id),content)
+        verify_rep = thm.verify_user(str(ctx.message.author.id),content)
         if verify_rep == "already_in":
             await ctx.send("You already have verified your codeforces account.")
         elif verify_rep == "wrong_id":
