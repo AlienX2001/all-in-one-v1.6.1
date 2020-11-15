@@ -63,6 +63,7 @@ async def verify(ctx, site="", content=""):
         await thm_verification.verify(ctx,content)
     else:
         await ctx.send(f'The Correct Way is `.verify <site> <content>` the <site> can be htb/hackthebox, thm/tryhackme or codeforces')
+        await ctx.send("If you are hacving trouble kindly refer this google doc https://docs.google.com/document/d/17GbuhXY1SgCdUjXXbWh1L5XvfofOT7h5DXccBIcqNGo/edit?usp=sharing")
 
 
 @client.command()
