@@ -1,4 +1,4 @@
-# all-in-one-v1.6
+# all-in-one-v1.6.1
 ### The bot currently has the following features:-
   1. Moderation
   2. Verification via hackthebox account identifiers, tryhackme discord tokens and codeforces account handles
