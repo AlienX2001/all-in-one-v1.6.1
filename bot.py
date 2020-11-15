@@ -62,7 +62,7 @@ async def verify(ctx, site="", content=""):
     elif(site=="thm" or site=="tryhackme"):
         await thm_verification.verify(ctx,content)
     else:
-        await ctx.send(f'The Correct Way is `.verify <site> <content>` the <site> can be htb/hackthebox or codeforces')
+        await ctx.send(f'The Correct Way is `.verify <site> <content>` the <site> can be htb/hackthebox, thm/tryhackme or codeforces')
 
 
 @client.command()
