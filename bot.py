@@ -55,8 +55,8 @@ warn_list={}
 @client.event
 async def on_message(message):
     if message.content.startswith('.google'):
-        print('http://lmgtfy.com/?q=' + ''.join([letter.replace(" ", "+") for letter in message.content[8:]]))
-    await bot.process_commands(message)
+        await message.channel.send('http://lmgtfy.com/?q=' + ''.join([letter.replace(" ", "+") for letter in message.content[8:]]))
+    await client.process_commands(message)
 
 @client.command()
 async def verify(ctx, site="", content=""):
