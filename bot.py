@@ -52,6 +52,12 @@ async def on_reaction_add(reaction, user):
 
 warn_list={}
 
+@client.event
+async def on_message(message):
+    if message.content.startswith('.google'):
+        print('http://lmgtfy.com/?q=' + ''.join([letter.replace(" ", "+") for letter in message.content[8:]]))
+    await bot.process_commands(message)
+
 @client.command()
 async def verify(ctx, site="", content=""):
     """Verify your accounts"""
