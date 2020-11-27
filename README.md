@@ -3,6 +3,7 @@
   1. Moderation
   2. Verification via hackthebox account identifiers, tryhackme discord tokens and codeforces account handles
   3. A coding related quizzing game
+  4. lmgtfy stuff
 ### The following features are being worked upon:-
   * A music bot which can play music like bots like Rythm or Groovy
 ## Wanna add my bot?? LINK down below
